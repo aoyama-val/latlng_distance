@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    vincenty (1.0.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  vincenty
+
+BUNDLED WITH
+   1.11.2
