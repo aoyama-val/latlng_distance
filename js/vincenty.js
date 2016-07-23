@@ -1,12 +1,13 @@
-function toRad(a) {
-    return a / 180.0 * Math.PI;
-}
 
 /*
  * Calculate geodesic distance (in m) between two points specified by latitude/longitude (in numeric degrees)
  * using Vincenty inverse formula for ellipsoids
  */
 function distVincenty(lat1, lon1, lat2, lon2) {
+  function toRad(a) {
+      return a / 180.0 * Math.PI;
+  }
+
   var a = 6378137, b = 6356752.3142,  f = 1/298.257223563;  // WGS-84 ellipsiod
   var L = toRad((lon2-lon1));
   var U1 = Math.atan((1-f) * Math.tan(toRad(lat1)));
