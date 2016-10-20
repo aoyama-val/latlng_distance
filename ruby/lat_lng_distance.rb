@@ -1,4 +1,8 @@
-require "vincenty"
+begin
+  require "vincenty"
+rescue LoadError
+  # do nothing
+end
 
 # 緯度経度から距離を求めるためのクラス
 # 単位は全てメートル
@@ -128,6 +132,9 @@ module LatLngDistance
 
   # Vincentyのアルゴリズム
   def self.vincenty(lat1, lng1, lat2, lng2)
+    if not defined?(Vincenty)
+      raise "vincentyが読み込まれていません。gem intall vincentyでインストールしてください。"
+    end
     return Vincenty.new(lat1, lng1).distanceAndAngle(Vincenty.new(lat2, lng2)).distance
   end
 
@@ -171,7 +178,11 @@ if __FILE__ == $0
     lat2 = 36.10056
     lng2 = 140.09111
 
-    ["euclid", "haversine", "hubeny", "vincenty"].each do |method|
+    methods = ["euclid", "haversine", "hubeny"]
+    if defined?(Vincenty)
+      methods << "vincenty"
+    end
+    methods.each do |method|
       r.report method do
         TIMES.times do |i|
           dist = LatLngDistance.send(method, lat1, lng1, lat2, lng2)
