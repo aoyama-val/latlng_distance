@@ -181,6 +181,8 @@ if __FILE__ == $0
     methods = ["euclid", "haversine", "hubeny"]
     if defined?(Vincenty)
       methods << "vincenty"
+    else
+      puts "Warning: vincentyをrequireできないため、vincentyは実行しません。gem install vincentyでインストールしてください。"
     end
     methods.each do |method|
       r.report method do
